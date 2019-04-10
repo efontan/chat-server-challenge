@@ -1,0 +1,13 @@
+/.settings/
+/target/
+/.classpath
+/.project
+
+*.eml
+*.iml
+*.ipr
+*.iws
+.*.sw?
+.idea
+.editorconfig
+/bin
