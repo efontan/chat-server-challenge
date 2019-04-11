@@ -3,20 +3,20 @@ package challenge.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "USER", uniqueConstraints = @UniqueConstraint(columnNames = "ID"))
+@Table(name = "USER")
 public class User
     extends AbstractEntity {
     
+    private String userId;
     private String username;
     private String password;
     
     public User() {
     }
     
-    @Column(name = "USERNAME", nullable = false)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -24,6 +24,16 @@ public class User
     @Column(name = "PASSWORD", nullable = false)
     public String getPassword() {
         return password;
+    }
+    
+    @Column(name = "USER_ID", nullable = false, updatable = false)
+    public String getUserId() {
+        return userId;
+    }
+    
+    
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     
     public void setUsername(String username) {

@@ -18,19 +18,19 @@ public abstract class AbstractEntity {
     
     @Id
     @GeneratedValue
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     public Long getId() {
         return this.id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
     }
     
     @Version
     @Column(name = "VERSION")
     public Long getVersion() {
         return this.version;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public void setVersion(Long version) {
