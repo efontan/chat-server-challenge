@@ -14,7 +14,7 @@ public class MessageContentDTO
     implements Serializable {
     
     private final static long serialVersionUID = 1L;
-    @NotBlank
+    @NotBlank(message = "content cannot be blank")
     private String type;
     private String text;
     private String url;

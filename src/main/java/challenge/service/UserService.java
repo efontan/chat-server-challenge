@@ -25,6 +25,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private AuthService authService;
+    
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         User user = this.mapToUserEntity(userRequestDTO);
         
@@ -39,11 +42,11 @@ public class UserService {
         return new UserResponseDTO(user.getId());
     }
     
-    // TODO: use a mapper (like Orika) to map entities and DTOs 
+    // TODO: use a mapper to map entities and DTOs 
     private User mapToUserEntity(UserRequestDTO userRequest) {
         User user = new User();
         user.setUsername(userRequest.getUsername());
-        user.setPassword(userRequest.getPassword());
+        user.setPassword(this.authService.encodePassword(userRequest.getPassword()));
         return user;
     }
     
@@ -52,14 +55,14 @@ public class UserService {
         return maybeUser.orElseThrow(() -> new UserNotFoundException(format("User with id '%d' not found", userId)));
     }
     
-    public User retrieveAndValidateUser(String username, String password) {
+    public User retrieveAndValidateUser(String username, String rawPassword) {
         LOGGER.debug("Retrieve user with username : {}", username);
         Optional<User> user = this.userRepository.findUserByUsername(username);
         
-        String userPassword = user.map(User::getPassword)
+        String storedUserPassword = user.map(User::getPassword)
             .orElseThrow(() -> new InvalidCredentialsException(format("User with username '%s' not found", username)));
         
-        if (!userPassword.equals(password)) {
+        if (!this.authService.passwordMatches(rawPassword, storedUserPassword)) {
             throw new InvalidCredentialsException("Invalid password.");
         }
         

@@ -14,11 +14,11 @@ public class MessageDTO
     
     private final static long serialVersionUID = 1L;
     
-    @NotNull
+    @NotNull(message = "sender cannot be null")
     private Long sender;
-    @NotNull
+    @NotNull(message = "recipient cannot be null")
     private Long recipient;
-    @NotNull
+    @NotNull(message = "content cannot be null")
     private MessageContentDTO content;
     
     private Long id;

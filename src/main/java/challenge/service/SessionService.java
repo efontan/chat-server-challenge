@@ -44,4 +44,8 @@ public class SessionService {
         return new UserResponseDTO(user.getId(), session.getToken());
     }
     
+    public boolean isValidSession(String token) {
+        LOGGER.debug("Attempt to validate session token: {}", token);
+        return this.sessionRepository.findSessionByToken(token).isPresent();
+    }
 }

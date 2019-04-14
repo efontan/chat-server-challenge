@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonParser {
+public class JsonParserUtils {
     
     private final static ObjectMapper jsonMapper = new ObjectMapper();
     

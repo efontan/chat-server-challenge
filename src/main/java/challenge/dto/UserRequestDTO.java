@@ -12,9 +12,9 @@ public class UserRequestDTO
     
     private static final long serialVersionUID = 1L;
     
-    @NotBlank
+    @NotBlank(message = "username cannot be blank")
     private String username;
-    @NotBlank
+    @NotBlank(message = "password cannot be blank")
     private String password;
     
     public UserRequestDTO() {

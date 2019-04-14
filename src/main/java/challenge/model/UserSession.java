@@ -17,7 +17,6 @@ public class UserSession
     private String token;
     private User user;
     private OffsetDateTime creationDate;
-    private OffsetDateTime finalizationDate;
     
     public UserSession() {
     }
@@ -38,11 +37,6 @@ public class UserSession
         return this.creationDate;
     }
     
-    @Column(name = "FINALIZATION_DATE")
-    public OffsetDateTime getFinalizationDate() {
-        return finalizationDate;
-    }
-    
     public void setToken(String token) {
         this.token = token;
     }
@@ -55,7 +49,4 @@ public class UserSession
         this.creationDate = creationDate;
     }
     
-    public void setFinalizationDate(OffsetDateTime finalizationDate) {
-        this.finalizationDate = finalizationDate;
-    }
 }

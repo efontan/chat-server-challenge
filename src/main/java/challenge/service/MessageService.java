@@ -16,7 +16,7 @@ import challenge.exception.ValidationException;
 import challenge.model.Message;
 import challenge.model.User;
 import challenge.utils.DateUtils;
-import challenge.utils.JsonParser;
+import challenge.utils.JsonParserUtils;
 
 @Service
 public class MessageService {
@@ -82,7 +82,7 @@ public class MessageService {
     
     private String extractMetadata(MessageMetadataDTO metadata) {
         try {
-            return JsonParser.objectToString(metadata);
+            return JsonParserUtils.objectToString(metadata);
         } catch (Exception e) {
             throw new ValidationException("Invalid metadata", e);
         }
@@ -90,7 +90,7 @@ public class MessageService {
     
     private MessageMetadataDTO stringToMetadata(String metadata) {
         try {
-            return JsonParser.stringToObject(metadata, MessageMetadataDTO.class);
+            return JsonParserUtils.stringToObject(metadata, MessageMetadataDTO.class);
         } catch (Exception e) {
             throw new ValidationException("Invalid metadata", e);
         }
