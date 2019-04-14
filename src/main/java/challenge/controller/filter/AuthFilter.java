@@ -41,6 +41,7 @@ public class AuthFilter
             // reject
             LOGGER.error("Invalid token: {}", token);
             ((HttpServletResponse) servletResponse).sendError(SC_UNAUTHORIZED, "The token is not valid.");
+            return;
         }
         
         chain.doFilter(servletRequest, servletResponse);
