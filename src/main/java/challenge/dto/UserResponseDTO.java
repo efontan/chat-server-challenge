@@ -11,21 +11,35 @@ public class UserResponseDTO
     
     private static final long serialVersionUID = 1L;
     
-    private String id;
+    private Long id;
+    private String token;
     
     public UserResponseDTO() {
     }
     
-    public UserResponseDTO(String id) {
+    public UserResponseDTO(Long id) {
         this.id = id;
     }
     
-    public String getId() {
+    public UserResponseDTO(Long id, String token) {
+        this.id = id;
+        this.token = token;
+    }
+    
+    public Long getId() {
         return id;
     }
     
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+    
+    public String getToken() {
+        return token;
+    }
+    
+    public void setToken(String token) {
+        this.token = token;
     }
     
     @Override

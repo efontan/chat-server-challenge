@@ -7,7 +7,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class UserRequestDTO implements Serializable {
+public class UserRequestDTO
+    implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -43,4 +44,5 @@ public class UserRequestDTO implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, SHORT_PREFIX_STYLE);
-    }}
+    }
+}

@@ -9,7 +9,6 @@ import javax.persistence.Table;
 public class User
     extends AbstractEntity {
     
-    private String userId;
     private String username;
     private String password;
     
@@ -24,16 +23,6 @@ public class User
     @Column(name = "PASSWORD", nullable = false)
     public String getPassword() {
         return password;
-    }
-    
-    @Column(name = "USER_ID", nullable = false, updatable = false)
-    public String getUserId() {
-        return userId;
-    }
-    
-    
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     
     public void setUsername(String username) {
