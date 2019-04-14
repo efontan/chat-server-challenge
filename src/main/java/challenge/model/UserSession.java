@@ -59,5 +59,3 @@ public class UserSession
         this.finalizationDate = finalizationDate;
     }
 }
-    
-    

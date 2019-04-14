@@ -14,6 +14,7 @@ import challenge.dto.UserRequestDTO;
 import challenge.dto.UserResponseDTO;
 import challenge.exception.DuplicatedEntityException;
 import challenge.exception.InvalidCredentialsException;
+import challenge.exception.UserNotFoundException;
 import challenge.model.User;
 
 @Service
@@ -27,7 +28,7 @@ public class UserService {
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         User user = this.mapToUserEntity(userRequestDTO);
         
-        LOGGER.info("Creating a new user: {}", user);
+        LOGGER.debug("Creating a new user: {}", user);
         
         try {
             this.userRepository.save(user);
@@ -46,7 +47,13 @@ public class UserService {
         return user;
     }
     
+    public User findUserById(Long userId) {
+        Optional<User> maybeUser = this.userRepository.findUserById(userId);
+        return maybeUser.orElseThrow(() -> new UserNotFoundException(format("User with id '%d' not found", userId)));
+    }
+    
     public User retrieveAndValidateUser(String username, String password) {
+        LOGGER.debug("Retrieve user with username : {}", username);
         Optional<User> user = this.userRepository.findUserByUsername(username);
         
         String userPassword = user.map(User::getPassword)
