@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import challenge.constants.MessageType;
+import challenge.constants.MessageVideoSource;
 import challenge.dao.MessageRepository;
 import challenge.dto.MessageDTO;
 import challenge.dto.MessageMetadataDTO;
@@ -55,22 +56,28 @@ public class MessageService {
                 message.setText(messageDTO.getContent().getText());
                 break;
             case IMAGE:
-            case VIDEO:
-                String metadata = this.extractMetadata(messageDTO.getContent().getMetadata());
                 message.setUrl(messageDTO.getContent().getUrl());
-                message.setMetadata(metadata);
+                message.setMetadata(this.extractMetadata(messageDTO.getContent().getMetadata()));
+            case VIDEO:
+                this.validateVideoSource(messageDTO.getContent().getMetadata().getSource());
+                message.setUrl(messageDTO.getContent().getUrl());
+                message.setMetadata(this.extractMetadata(messageDTO.getContent().getMetadata()));
                 break;
         }
         
         return message;
     }
     
+    // TODO: separate validations into another classes
+    private void validateVideoSource(String videoSourceAsString) {
+        MessageVideoSource.fromString(videoSourceAsString).orElseThrow(() -> new ValidationException(
+            "Invalid video source '" + videoSourceAsString + "'. Valid types: " + Arrays.toString(
+                MessageVideoSource.values())));
+    }
+    
     private MessageType getMessageTypeFromString(String messageTypeAsString) {
-        try {
-            return MessageType.valueOf(messageTypeAsString.toUpperCase());
-        } catch (Exception e) {
-            throw new ValidationException("Invalid message type. Valid types: " + Arrays.toString(MessageType.values()), e);
-        }
+        return MessageType.fromString(messageTypeAsString).orElseThrow(() -> new ValidationException(
+            "Invalid message type '" + messageTypeAsString + "'. Valid types: " + Arrays.toString(MessageType.values())));
     }
     
     private String extractMetadata(MessageMetadataDTO metadata) {
