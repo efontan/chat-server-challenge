@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import challenge.constants.MessageType;
@@ -29,14 +29,14 @@ public class Message
     public Message() {
     }
     
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "SENDER_USER_ID", unique = true, foreignKey = @ForeignKey(name = "FK_SENDER_USER_ID"))
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "SENDER_USER_ID", foreignKey = @ForeignKey(name = "FK_SENDER_USER_ID"))
     public User getSender() {
         return sender;
     }
     
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "RECIPIENT_USER_ID", unique = true, foreignKey = @ForeignKey(name = "FK_RECIPIENT_USER_ID"))
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "RECIPIENT_USER_ID", foreignKey = @ForeignKey(name = "FK_RECIPIENT_USER_ID"))
     public User getRecipient() {
         return recipient;
     }
@@ -47,17 +47,17 @@ public class Message
         return messageType;
     }
     
-    @Column(name = "URL")
+    @Column(name = "URL", length = 2083)
     public String getUrl() {
         return url;
     }
     
-    @Column(name = "TEXT")
+    @Column(name = "TEXT", length = 4096)
     public String getText() {
         return text;
     }
     
-    @Column(name = "METADATA")
+    @Column(name = "METADATA", length = 4096)
     public String getMetadata() {
         return metadata;
     }

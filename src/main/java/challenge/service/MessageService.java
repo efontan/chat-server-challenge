@@ -65,6 +65,14 @@ public class MessageService {
         return message;
     }
     
+    private MessageType getMessageTypeFromString(String messageTypeAsString) {
+        try {
+            return MessageType.valueOf(messageTypeAsString.toUpperCase());
+        } catch (Exception e) {
+            throw new ValidationException("Invalid message type. Valid types: " + Arrays.toString(MessageType.values()), e);
+        }
+    }
+    
     private String extractMetadata(MessageMetadataDTO metadata) {
         try {
             return JsonParser.objectToString(metadata);
@@ -78,14 +86,6 @@ public class MessageService {
             return JsonParser.stringToObject(metadata, MessageMetadataDTO.class);
         } catch (Exception e) {
             throw new ValidationException("Invalid metadata", e);
-        }
-    }
-    
-    private MessageType getMessageTypeFromString(String messageTypeAsString) {
-        try {
-            return MessageType.valueOf(messageTypeAsString);
-        } catch (Exception e) {
-            throw new ValidationException("Invalid message type. Valid types: " + Arrays.toString(MessageType.values()), e);
         }
     }
 }
