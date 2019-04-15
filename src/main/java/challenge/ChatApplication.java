@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories
 @EnableTransactionManagement
 @ComponentScan(basePackages = "challenge")
-public class Application {
+public class ChatApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ChatApplication.class, args);
     }
 
 }
+
