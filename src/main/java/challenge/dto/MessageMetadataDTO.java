@@ -13,6 +13,9 @@ public class MessageMetadataDTO implements Serializable {
     private String width;
     private String source;
     
+    public MessageMetadataDTO() {
+    }
+    
     public MessageMetadataDTO(String height, String width, String source) {
         this.height = height;
         this.width = width;
